@@ -18,7 +18,7 @@ public class LoginController {
     }
 
     @PostMapping(value = "/login")
-    public String showLandingPage(ModelMap model, @RequestParam String username, @RequestParam String password) {
+    public String showHomePage(ModelMap model, @RequestParam String username, @RequestParam String password) {
         boolean isValidUser = loginService.validateUser(username, password);
 
         if (!isValidUser) {
@@ -29,6 +29,6 @@ public class LoginController {
         model.put("username", username);
         model.put("password", password);
 
-        return "landing";
+        return "home";
     }
 }
