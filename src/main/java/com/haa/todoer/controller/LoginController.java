@@ -2,22 +2,28 @@ package com.haa.todoer.controller;
 
 import com.haa.todoer.service.LoginService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
-@RestController
+@Controller
 @SessionAttributes("username")
+@RequestMapping("/login")
 public class LoginController {
 
     @Autowired
     LoginService loginService;
 
-    @GetMapping(value = "/login")
+    public LoginController(LoginService loginService) {
+        this.loginService = loginService;
+    }
+
+    @GetMapping(value = "/")
     public String showLoginPage(ModelMap model) {
         return "login";
     }
 
-    @PostMapping(value = "/login")
+    @PostMapping(value = "/")
     public String showHomePage(ModelMap model, @RequestParam String username, @RequestParam String password) {
         boolean isValidUser = loginService.validateUser(username, password);
 
