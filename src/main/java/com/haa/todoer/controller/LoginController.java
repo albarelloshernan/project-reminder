@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 @Controller
 @SessionAttributes("username")
-@RequestMapping("/login")
+@RequestMapping("/landing")
 public class LoginController {
 
     @Autowired
@@ -18,12 +18,12 @@ public class LoginController {
         this.loginService = loginService;
     }
 
-    @GetMapping(value = "/")
+    @GetMapping(value = "/login")
     public String showLoginPage(ModelMap model) {
         return "login";
     }
 
-    @PostMapping(value = "/")
+    @PostMapping(value = "/login")
     public String showHomePage(ModelMap model, @RequestParam String username, @RequestParam String password) {
         boolean isValidUser = loginService.validateUser(username, password);
 

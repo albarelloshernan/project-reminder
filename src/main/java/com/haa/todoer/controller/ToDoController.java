@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 
 @Controller
 @SessionAttributes("username")
-@RequestMapping("/list-todos")
+@RequestMapping("/list")
 public class ToDoController {
 
     @Autowired
@@ -20,7 +20,7 @@ public class ToDoController {
         this.toDoService = toDoService;
     }
 
-    @GetMapping(value = "/")
+    @GetMapping(value = "/todonotes")
     public String showToDos(ModelMap model) {
         String username = (String) model.get("username");
         model.put("filteredToDosList", toDoService.retrieveToDos(username));
