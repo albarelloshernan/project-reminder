@@ -4,6 +4,8 @@ import com.haa.todoer.entity.ToDoEntity;
 import com.haa.todoer.model.ToDo;
 import com.haa.todoer.repository.ToDoRepository;
 import com.haa.todoer.service.ToDoService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +15,8 @@ import java.util.List;
 
 @Service
 public class ToDoServiceImpl implements ToDoService {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(ToDoServiceImpl.class);
 
     private static List<ToDo> toDosList = new ArrayList<ToDo>();
     private static int toDoCount = 3;
@@ -36,8 +40,11 @@ public class ToDoServiceImpl implements ToDoService {
         for (ToDo toDo : toDosList) {
             if (toDo.getUser().equals(user)) {
                 filteredToDosList.add(toDo);
+            } else {
+                LOGGER.error(":: ToDoServiceImpl$retrieveToDos - Notes excluded, wrong user {}. ::", toDo.getUser());
             }
         }
+        LOGGER.info(":: ToDoServiceImpl$retrieveToDos - Notes list loaded. ::");
         return filteredToDosList;
     }
 
@@ -54,6 +61,7 @@ public class ToDoServiceImpl implements ToDoService {
         toDoNote.setDone(note.isDone());
 
         this.toDoRepository.save(toDoNote);
+        LOGGER.info(":: ToDoServiceImpl$saveNote - Note successfully saved. ::");
 
         return note;
     }
