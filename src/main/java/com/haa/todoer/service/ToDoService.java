@@ -10,4 +10,6 @@ public interface ToDoService {
      * @return List
      * */
     public List<ToDo> retrieveToDos(String user);
+
+    public ToDo saveNote(ToDo note);
 }
