@@ -10,25 +10,29 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class ToDoServiceImpl implements ToDoService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ToDoServiceImpl.class);
 
-    private static List<ToDo> toDosList = new ArrayList<ToDo>();
+    /*private static List<ToDo> toDosList = new ArrayList<ToDo>();
     private static int toDoCount = 3;
 
     static {
         toDosList.add(new ToDo(1, "CosmeFulano", "Learn Spring MVC", new Date(), false));
         toDosList.add(new ToDo(2, "CosmeFulanito", "Learn Hibernate", new Date(), false));
         toDosList.add(new ToDo(3, "CosmeFulanito", "Learn AOP", new Date(), false));
-    }
+    }*/
 
     @Autowired
     ToDoRepository toDoRepository;
+
+    public ToDoServiceImpl(ToDoRepository toDoRepository) {
+        this.toDoRepository = toDoRepository;
+    }
 
     /** Retrieves a list of notes from a user
      * @param user
@@ -37,13 +41,19 @@ public class ToDoServiceImpl implements ToDoService {
     @Override
     public List<ToDo> retrieveToDos(String user) {
         List<ToDo> filteredToDosList = new ArrayList<ToDo>();
-        for (ToDo toDo : toDosList) {
+
+        for (int i=1;i<10;i++) {
+            Long index = Long.valueOf(i);
+            this.toDoRepository.findById(index);
+        }
+
+        /*for (ToDo toDo : toDosList) {
             if (toDo.getUser().equals(user)) {
                 filteredToDosList.add(toDo);
             } else {
                 LOGGER.error(":: ToDoServiceImpl$retrieveToDos - Notes excluded, wrong user {}. ::", toDo.getUser());
             }
-        }
+        }*/
         LOGGER.info(":: ToDoServiceImpl$retrieveToDos - Notes list loaded. ::");
         return filteredToDosList;
     }

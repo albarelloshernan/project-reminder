@@ -26,6 +26,11 @@ public class LoginServiceImpl implements LoginService {
     @Value("${todoer.password}")
     private String ToDoPass;
 
+    public LoginServiceImpl(ToDoRepository toDoRepository, UsersRepository usersRepository) {
+        this.toDoRepository = toDoRepository;
+        this.usersRepository = usersRepository;
+    }
+
     @Override
     public boolean validateUser(String userId, String password) {
         LOGGER.info(":: LoginServiceImpl$validateUser - Credentials validation. ::");
