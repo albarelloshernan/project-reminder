@@ -4,6 +4,7 @@ import com.haa.todoer.entity.ToDoEntity;
 import com.haa.todoer.model.ToDo;
 import com.haa.todoer.repository.ToDoRepository;
 import com.haa.todoer.service.ToDoService;
+import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +12,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class ToDoServiceImpl implements ToDoService {
@@ -41,10 +41,11 @@ public class ToDoServiceImpl implements ToDoService {
     @Override
     public List<ToDo> retrieveToDos(String user) {
         List<ToDo> filteredToDosList = new ArrayList<ToDo>();
+        ModelMapper modelMapper = new ModelMapper();
 
         for (int i=1;i<10;i++) {
             Long index = Long.valueOf(i);
-            this.toDoRepository.findById(index);
+            filteredToDosList.add(modelMapper.map(this.toDoRepository.findById(index), ToDo.class));
         }
 
         /*for (ToDo toDo : toDosList) {
